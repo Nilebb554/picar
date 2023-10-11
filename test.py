@@ -1,15 +1,18 @@
 from gpiozero import Robot
 import time
 
-robot = Robot((24, 26), (19, 21))
+robot = Robot(left=(24, 26), right=(19, 21)
 
 def test():
   robot.forward()
-  sleep(3)
+  time.sleep(3)
   robot.backward()
-  sleep(3)
+  time.sleep(3)
   robot.left()
-  sleep(3)
+  time.sleep(3)
   robot.right()
-  sleep(3)
+  time.sleep(3)
   robot.stop()
+  print("DONE")
+
+test()
