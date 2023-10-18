@@ -1,7 +1,7 @@
 from gpiozero import Robot
 import time
 
-robot = Robot(left=(21, 26), right=(19, 24))
+robot = Robot((21, 26),(19, 24))
 
 def test():
   robot.forward()
