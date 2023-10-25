@@ -17,10 +17,10 @@ time.sleep(3)
 
 
 GPIO.output(19, 0)
-GPIO.output(21, 0)
+GPIO.output(21, 1)
 
 GPIO.output(24, 0)
-GPIO.output(26, 0)
+GPIO.output(26, 1)
 
 time.sleep(3)
 
