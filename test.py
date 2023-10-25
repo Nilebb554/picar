@@ -4,8 +4,8 @@ import time
 
 GPIO.cleanup()
 
-motor1 = Motor(24, 26)
-motor2 = Motor(19, 21)
+motor1 = Motor(21, 26)
+motor2 = Motor(19, 24)
 
 def test():
     motor1.forward()
