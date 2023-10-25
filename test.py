@@ -8,9 +8,10 @@ GPIO.setup(24, GPIO.OUT)
 GPIO.setup(26, GPIO.OUT)
 
 time.sleep(3)
+#19 = Motor1 backwars 
 
-GPIO.output(19, 1)
-GPIO.output(21, 0)
+GPIO.output(19, 0)
+GPIO.output(21, 1)
 
 GPIO.output(24, 0)
 GPIO.output(26, 0)
