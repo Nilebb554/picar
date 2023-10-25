@@ -13,5 +13,6 @@ time.sleep(3)
 GPIO.output(21, 0)
 GPIO.output(26, 1)
 
+time.sleep(10)
 
 GPIO.cleanup()
