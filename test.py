@@ -3,6 +3,7 @@ import time
 
 robot = Robot(left=(21, 26), right=(19, 24))
 
+GPIO
 def test():
     robot.forward()
     time.sleep(3)
