@@ -1,4 +1,5 @@
 from gpiozero import Motor
+import RPi.GPIO as GPIO
 import time
 
 GPIO.cleanup()
