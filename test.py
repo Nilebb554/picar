@@ -10,10 +10,8 @@ GPIO.setup(26, GPIO.OUT)
 time.sleep(3)
 
 
-#Motor2 on forwards
 GPIO.output(21, 0)
-GPIO.output(26, 1)
-
+#GPIO.output(26,0)
 time.sleep(10)
 
 GPIO.cleanup()
