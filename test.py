@@ -12,6 +12,7 @@ time.sleep(3)
 #21 = Motor1 forward
 
 #24 = Motor0 backward
+#26 = Motor0 forward
 
 
 
