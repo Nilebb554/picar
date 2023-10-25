@@ -8,15 +8,18 @@ GPIO.setup(24, GPIO.OUT)
 GPIO.setup(26, GPIO.OUT)
 
 time.sleep(3)
-#19 = Motor1 backwars 
-#21 = Motor1 forwards
+#19 = Motor1 backward
+#21 = Motor1 forward
+
+#24 = Motor0 backward
+
 
 
 GPIO.output(19, 0)
 GPIO.output(21, 1)
 
-GPIO.output(24, 1)
-GPIO.output(26, 0)
+GPIO.output(24, 0)
+GPIO.output(26, 1)
 
 time.sleep(3)
 
