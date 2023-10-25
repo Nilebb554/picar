@@ -1,10 +1,11 @@
-from gpiozero import Robot
+from gpiozero import Motor
 import time
 
-robot = Robot(left=(24, 26), right=(19, 21))
+motor1 = Motor(24, 26)
+motor2 = Motor(19, 21)
 
 def test():
-    robot.forward()
+    motor1.forward()
     time.sleep(3)
     print("DONE")
 
