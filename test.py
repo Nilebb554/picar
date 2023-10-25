@@ -16,11 +16,3 @@ def test():
     print("DONE")
 
 test()
-test()
-test()
-test()
-test()
-test()
-test()
-test()
-test()
