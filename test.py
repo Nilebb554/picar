@@ -10,7 +10,7 @@ GPIO.setup(26, GPIO.OUT)
 time.sleep(3)
 
 #Motor0 forwards
-#GPIO.output(21, 0)
+#GPI.output(21, 0)
 
 GPIO.output(26, 0)
 
