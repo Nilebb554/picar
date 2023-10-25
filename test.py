@@ -2,7 +2,7 @@ from gpiozero import Motor
 import RPi.GPIO as GPIO
 import time
 
-GPIO.cleanup()
+time.sleep(5)
 
 motor1 = Motor(21, 26)
 motor2 = Motor(19, 24)
