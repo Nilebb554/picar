@@ -14,7 +14,7 @@ time.sleep(3)
 #24 = Motor0 backward
 #26 = Motor0 forward
 
-#WTF den kör först vad du sa gpio pinsen att göra förra pullen och sedan kör den den nuvarnade
+#WTF dem kör direkt förra verisonen av scriptet och sedan den nuvarande
 
 GPIO.output(19, 0)
 GPIO.output(21, 0)
