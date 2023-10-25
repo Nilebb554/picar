@@ -1,9 +1,4 @@
 import RPi.GPIO as GPIO
-import time
-
-GPIO.setmode(GPIO.BCM)
-GPIO.cleanup()
-
 from gpiozero import Robot
 import time
 
@@ -34,3 +29,4 @@ time.sleep(3)
 robot.stop()
 
 robot.close()
+GPIO.cleanup()
