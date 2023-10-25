@@ -1,19 +1,10 @@
-import time, RPi.GPIO as GPIO
+from gpiozero import Robot
+import time
 
-GPIO.setwarnings(False)
-GPIO.setmode(GPIO.BOARD)
-GPIO.setup(19, GPIO.OUT)
-GPIO.setup(21, GPIO.OUT)
-GPIO.setup(24, GPIO.OUT)
-GPIO.setup(26, GPIO.OUT)
+robot = Robot(left=(21, 26), right=(19,24))
 
-time.sleep(3)
+time.sleep(5)
 
-#Motor0 forwards
-#GPI.output(21, 0)
+robot.forward()
 
-GPIO.output(26, 0)
-
-time.sleep(10)
-
-GPIO.cleanup()
+time.sleep(5)
