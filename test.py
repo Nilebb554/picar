@@ -29,19 +29,9 @@ GPIO.output(26, 0)
 
 time.sleep(5)
 
-print("Moving")
-
+#avsluta?
 GPIO.output(19, 0)
 GPIO.output(21, 0)
 GPIO.output(24, 0)
 GPIO.output(26, 0)
-
-print("STOPPED")
-
-time.sleep(3)
-
 GPIO.cleanup()
-
-print("Pins cleaned")
-
-time.sleep(3)
