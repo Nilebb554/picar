@@ -13,18 +13,6 @@ print("Pins set")
 
 time.sleep(3)
 
-GPIO.output(19, 0)
-GPIO.output(21, 0)
-GPIO.output(24, 0)
-GPIO.output(26, 0)
-
-print("Pins output = 0")
-
-GPIO.cleanup()
-print("Pins cleaned 1")
-
-time.sleep(3)
-
 #19 = Motor1 backward
 #21 = Motor1 forward
 
