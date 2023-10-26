@@ -30,14 +30,23 @@ time.sleep(3)
 #26 = Motor0 forward
 
 #WTF dem kör direkt förra verisonen av scriptet och sedan den nuvarande
+GPIO.setmode(GPIO.BOARD)
+GPIO.output(19, 0)
+GPIO.output(21, 1)
+
+GPIO.output(24, 0)
+GPIO.output(26, 1)
+
+time.sleep(5)
+
+print("Moving")
 
 GPIO.output(19, 0)
 GPIO.output(21, 0)
-
 GPIO.output(24, 0)
 GPIO.output(26, 0)
 
-print("Moving")
+print("STOPPED")
 
 time.sleep(3)
 
