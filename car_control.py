@@ -60,7 +60,7 @@ while True:
         power_off()
     elif move == "backward":
         move_backward()
-        time.sleep(0.2))
+        time.sleep(0.2)
         power_off()
 
 GPIO.cleanup()
