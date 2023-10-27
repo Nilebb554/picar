@@ -32,8 +32,8 @@ def move_left():
 
 #Move car forward
 def move_forward():
-    GPIO.output(21, 0)
-    GPIO.output(19, 1)
+    GPIO.output(21, 1)
+    GPIO.output(19, 0)
     GPIO.output(26, 1)
     GPIO.output(24, 0)
 
@@ -48,19 +48,19 @@ while True:
     move = input("Where move")
     if move == "left":
         move_left()
-        time.sleep(2)
+        time.sleep(0.2)
         power_off()
     elif move == "right":
         move_right()
-        time.sleep(2)
+        time.sleep(0.2)
         power_off()
     elif move == "forward":
         move_forward()
-        time.sleep(2)
+        time.sleep(0.2)
         power_off()
     elif move == "backward":
         move_backward()
-        time.sleep(2)
+        time.sleep(0.2))
         power_off()
 
 GPIO.cleanup()
