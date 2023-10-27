@@ -1,4 +1,5 @@
 import RPi.GPIO as GPIO
+import time
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
@@ -48,11 +49,20 @@ while True:
     move = input("Where move")
     if move == "left":
         move_left()
+        time.sleep(2)
+        power_off()
     elif move == "right":
         move_right()
+        time.sleep(2)
+        power_off()
     elif move == "forward":
         move_forward()
+        time.sleep(2)
+        power_off()
     elif move == "backward":
         move_backward()
+        time.sleep(2)
+        power_off()
     power_off()
+
 
