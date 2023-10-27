@@ -14,7 +14,6 @@ def power_off():
     GPIO.output(21, 0)
     GPIO.output(24, 0)
     GPIO.output(26, 0)
-    GPIO.cleanup()
 
 #Move car right
 def move_right():
@@ -63,6 +62,5 @@ while True:
         move_backward()
         time.sleep(2)
         power_off()
-    power_off()
 
-
+GPIO.cleanup()
