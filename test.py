@@ -29,7 +29,7 @@ GPIO.output(26, 0)
 
 time.sleep(5)
 
-#avsluta?
+#avslut
 GPIO.output(19, 0)
 GPIO.output(21, 0)
 GPIO.output(24, 0)
