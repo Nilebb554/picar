@@ -39,8 +39,8 @@ def move_forward():
 
 #Move car backward
 def move_backward():
-    GPIO.output(21, 1)
-    GPIO.output(19, 0)
+    GPIO.output(21, 0)
+    GPIO.output(19, 1)
     GPIO.output(26, 0)
     GPIO.output(24, 1)
 
