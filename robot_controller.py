@@ -1,6 +1,5 @@
 import socketio
 
-
 sio = socketio.Server()
 app = socketio.WSGIApp(sio) #run with gunicorn --threads 50 robot_controller:app maybe
 robot_state = {
