@@ -5,6 +5,11 @@ const keyState = {
     "right": 0
 };
 
+let socket = io();
+socket.on('connect', function(){
+    console.log("Starting connection")
+});
+
 document.addEventListener("keydown", function(event) {
     if (event.key === "ArrowUp") {
         keyState["forward"] = 1;
@@ -19,6 +24,7 @@ document.addEventListener("keydown", function(event) {
         keyState["right"] = 1;
     }
     console.log(keyState);
+    socket.emit("keyState", keyState)
 });
 
 document.addEventListener("keyup", function(event) {
@@ -35,4 +41,5 @@ document.addEventListener("keyup", function(event) {
         keyState["right"] = 0;
     }
     console.log(keyState);
+    socket.emit("keyState", keyState)
 });
