@@ -16,7 +16,9 @@ def connect():
 def disconnect():
     print("Client disconnected")
 
-
+@socketio.on("keyState")
+def handle_keyState(keyState):
+    print(keyState["forward"])
 
 if __name__ == "__main__":
     socketio.run(app)
