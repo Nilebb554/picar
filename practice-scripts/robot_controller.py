@@ -4,7 +4,7 @@ import time
 robot = Robot(left=(19, 21), right=(24, 26))
 
 try:
-    while True
+    while True:
         robot.left
         time.sleep(10)
         robot.stop
