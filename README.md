@@ -13,3 +13,5 @@ To install all dependencies run:
 To run flask app
 cd into venv. type "flask run".
 
+
+git pull origin main
