@@ -3,17 +3,9 @@ import time
 
 robot = Robot(left=(19, 21), right=(24, 26))
 
-# Move backward
-robot.backward()
-time.sleep(5)  # Adjust the sleep duration as needed
-
-# Stop for a moment
-robot.stop()
-time.sleep(1)
-
 # Move forward
 robot.forward()
-time.sleep(5)  # Adjust the sleep duration as needed
+time.sleep(5)
 
-# Stop at the end
+# Stop
 robot.stop()
