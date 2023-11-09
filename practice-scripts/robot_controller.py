@@ -36,8 +36,5 @@ try:
             move_right()
         elif move == "stop":
             robot.stop()
-except KeyboardInterrupt:
-    print("Stopping the robot")
-    robot.stop()
 finally:
     robot.stop()
