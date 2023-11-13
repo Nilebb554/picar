@@ -8,6 +8,17 @@ socketio = SocketIO(app)
 def hello_world():
     return render_template("index.html")
 
+def change_state(state):
+    if len(state) == 1:
+        print("KeyState = 1")
+    elif len(state) == 2:
+        print("KeyState = 2")
+    elif len(state) == 3:
+        print("KeyState = 3")
+    elif len(state) == 4:
+        print("KeyState = 4")
+
+
 @socketio.on("connect")
 def connect():
     print("Client connected")
@@ -18,7 +29,7 @@ def disconnect():
 
 @socketio.on("keyState")
 def handle_keyState(keyState):
-    print(keyState["forward"])
+    change_state(keyState)
 
 if __name__ == "__main__":
-    socketio.run(app)
+    socketio.run(app, debug = True)
