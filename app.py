@@ -1,10 +1,12 @@
 from flask import Flask, render_template
 from flask_socketio import SocketIO
 try:
-    from control import change_state
+    from control import change_state, power_up, power_down
 except (RuntimeError, ImportError) as e:
     print(f"Error importing control module: {e}")
     change_state = None
+    power_up = None
+    power_down = None
 
 app = Flask(__name__)
 socketio = SocketIO(app)
@@ -15,10 +17,14 @@ def hello_world():
 
 @socketio.on("connect")
 def connect():
+    if callable(power_up):
+        power_up()
     print("Client connected")
 
 @socketio.on("disconnect")
 def disconnect():
+    if callable(power_down):
+        power_down()
     print("Client disconnected")
 
 @socketio.on("keyState")
@@ -30,4 +36,8 @@ def handle_keyState(keyState):
         print(keyState)
 
 if __name__ == "__main__":
-    socketio.run(app)
+    try:
+        socketio.run(app)
+    finally:
+        if callable(power_down):
+            power_down()
