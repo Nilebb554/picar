@@ -5,6 +5,21 @@ MOTOR_LEFT_BACKWARD = 24
 MOTOR_RIGHT_FORWARD = 21
 MOTOR_RIGHT_BACKWARD = 19
 
+def power_up():
+    GPIO.setwarnings(False)
+    GPIO.setmode(GPIO.BOARD)
+    GPIO.setup(19, GPIO.OUT)
+    GPIO.setup(21, GPIO.OUT)
+    GPIO.setup(24, GPIO.OUT)
+    GPIO.setup(26, GPIO.OUT)
+
+def power_down():
+    GPIO.output(19, 0)
+    GPIO.output(21, 0)
+    GPIO.output(24, 0)
+    GPIO.output(26, 0)
+    GPIO.cleanup()
+
 def change_state(state):
     count_ones = sum(1 for value in state.values() if value == 1)
     if count_ones == 1:
