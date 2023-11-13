@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 from flask_socketio import SocketIO
 try:
+    import RPi.GPIO as GPIO
     from control import change_state, power_up, power_down
 except (RuntimeError, ImportError) as e:
     print(f"Error importing control module: {e}")
