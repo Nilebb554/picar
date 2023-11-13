@@ -1,5 +1,10 @@
 from flask import Flask, render_template
 from flask_socketio import SocketIO
+try:
+    from control import change_state
+except (RuntimeError, ImportError) as e:
+    print(f"Error importing control module: {e}")
+    change_state = None
 
 app = Flask(__name__)
 socketio = SocketIO(app)
@@ -18,7 +23,11 @@ def disconnect():
 
 @socketio.on("keyState")
 def handle_keyState(keyState):
-    print(keyState["forward"])
+    print(keyState)
+    try:
+        change_state(keyState)
+    except:
+        print(keyState)
 
 if __name__ == "__main__":
     socketio.run(app)
