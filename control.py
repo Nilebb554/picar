@@ -34,15 +34,15 @@ def change_state(state):
             GPIO.output(MOTOR_LEFT_FORWARD, 0)
             GPIO.output(MOTOR_LEFT_BACKWARD, 1)
         elif state["right"] == 1:
-            GPIO.output(MOTOR_RIGHT_FORWARD, 1)
-            GPIO.output(MOTOR_RIGHT_BACKWARD, 0)
-            GPIO.output(MOTOR_LEFT_FORWARD, 0)
-            GPIO.output(MOTOR_LEFT_BACKWARD, 1)
-        elif state["left"] == 1:
             GPIO.output(MOTOR_RIGHT_FORWARD, 0)
             GPIO.output(MOTOR_RIGHT_BACKWARD, 1)
             GPIO.output(MOTOR_LEFT_FORWARD, 1)
             GPIO.output(MOTOR_LEFT_BACKWARD, 0)
+        elif state["left"] == 1:
+            GPIO.output(MOTOR_RIGHT_FORWARD, 1)
+            GPIO.output(MOTOR_RIGHT_BACKWARD, 0)
+            GPIO.output(MOTOR_LEFT_FORWARD, 0)
+            GPIO.output(MOTOR_LEFT_BACKWARD, 1)    
     elif count_ones == 2:
         if state["forward"] == 1 and state["left"] == 1:
             GPIO.output(MOTOR_RIGHT_FORWARD, 1)
@@ -93,7 +93,7 @@ def change_state(state):
                 GPIO.output(MOTOR_RIGHT_BACKWARD, 1)
                 GPIO.output(MOTOR_LEFT_FORWARD, 0)
                 GPIO.output(MOTOR_LEFT_BACKWARD, 1) 
-    elif count_ones == 4:
+    elif count_ones == 4 or count_ones == 0:
         GPIO.output(MOTOR_RIGHT_FORWARD, 0)
         GPIO.output(MOTOR_RIGHT_BACKWARD, 0)
         GPIO.output(MOTOR_LEFT_FORWARD, 0)
