@@ -37,8 +37,4 @@ def handle_keyState(keyState):
         print(keyState)
 
 if __name__ == "__main__":
-    try:
-        socketio.run(app, host="0.0.0.0", port=5000, debug=True)
-    finally:
-        if callable(power_down):
-            power_down()
+    socketio.run(app, host="0.0.0.0", port=5000, debug=True)
