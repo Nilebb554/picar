@@ -11,7 +11,6 @@ except (RuntimeError, ImportError) as e:
 
 app = Flask(__name__)
 socketio = SocketIO(app)
-url_for('static', filename='style.css')
 
 @app.route('/')
 def hello_world():
