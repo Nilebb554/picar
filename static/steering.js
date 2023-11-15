@@ -6,34 +6,33 @@ const keyState = {
 };
 
 document.addEventListener("keydown", function(event) {
-    if (event.key === forwardArrow) {
+    if (event.key === "ArrowUp") {
         keyState["forward"] = 1;
     }
-    if (event.key === backwardArrow) {
+    if (event.key === "ArrowDown") {
         keyState["backward"] = 1;
     }
-    if (event.key === leftArrow) {
+    if (event.key === "ArrowLeft") {
         keyState["left"] = 1;
     }
-    if (event.key === rightArrow) {
+    if (event.key === "ArrowRight") {
         keyState["right"] = 1;
     }
     console.log(keyState);
 });
 
 document.addEventListener("keyup", function(event) {
-    if (event.key === forwardArrow) {
+    if (event.key === "ArrowUp") {
         keyState["forward"] = 0;
     }
-    if (event.key === backwardArrow) {
+    if (event.key === "ArrowDown") {
         keyState["backward"] = 0;
     }
-    if (event.key === leftArrow) {
+    if (event.key === "ArrowLeft") {
         keyState["left"] = 0;
     }
-    if (event.key === rightArrow) {
+    if (event.key === "ArrowRight") {
         keyState["right"] = 0;
     }
+    console.log(keyState);
 });
-
-
