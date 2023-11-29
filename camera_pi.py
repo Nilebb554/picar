@@ -13,7 +13,7 @@ class Camera(object):
             Camera.thread.Thread(target=self._thread)
             Camera.thread.start()
             
-            while self.frame = None:
+            while self.frame is None:
                 time.sleep(0)
 
     def get_frames(self)
