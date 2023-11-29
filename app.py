@@ -1,21 +1,15 @@
 from flask import Flask, render_template, Response
 from flask_socketio import SocketIO
 import RPi.GPIO as GPIO
-import cv2
 from control import change_state, power_up, power_down
+from camera import Camera
 
 app = Flask(__name__)
 socketio = SocketIO(app)
-vc = cv2.VideoCapture(0) 
 
 @app.route('/')
 def hello_world():
     return render_template("index.html")
-
-@app.route('/video')
-def video_feed(): 
-   """Video streaming route. Put this in the src attribute of an img tag.""" 
-   return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame') 
 
 @socketio.on("connect")
 def connect():
@@ -33,16 +27,15 @@ def handle_keyState(keyState):
     change_state(keyState)
 
 def gen():
-    try:
-        import picamera
-    except ImportError:
-        print("camera not fucking working. Giving up on life")
-        return
     while True: 
-        rval, frame = vc.read() 
-        cv2.imwrite('pic.jpg', frame) 
+        frame = camera.get_frame()
         yield (b'--frame\r\n' 
-            b'Content-Type: image/jpeg\r\n\r\n' + open('pic.jpg', 'rb').read() + b'\r\n')
+            b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+
+@app.route('/video_feed')
+def video_feed(): 
+   return Response(gen(Camera()), 
+                    mimetype='multipart/x-mixed-replace; boundary=frame') 
 
 if __name__ == "__main__":
     socketio.run(app, host="0.0.0.0", port=5000, debug=True)
