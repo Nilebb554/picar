@@ -6,7 +6,7 @@ from camera_opencv import generate_frames
 
 app = Flask(__name__)
 socketio = SocketIO(app)
-camera=cv2.VideoCapture(0)
+vc = cv2.VideoCapture(0)
 
 @app.route('/')
 def hello_world():

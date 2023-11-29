@@ -1,6 +1,5 @@
 import cv2
 
-
 def generate_frames():
     while True:
             
