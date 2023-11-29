@@ -27,8 +27,8 @@ def generate_frames():
 def hello_world():
     return render_template("index.html")
 
-@app.route('/video')
-def video():
+@app.route('/video_feed')
+def video_feed():
     return Response(generate_frames(),mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @socketio.on("connect")
