@@ -32,14 +32,12 @@ def handle_keyState(keyState):
     print(keyState)
     change_state(keyState)
 
-def gen(): 
-   """Video streaming generator function."""
-   try:
+def gen():
+    try:
         import picamera
     except ImportError:
-        print("Picamera errror: Help me plz")
+        print("camera not fucking working. Giving up on life")
         return
-
    while True: 
        rval, frame = vc.read() 
        cv2.imwrite('pic.jpg', frame) 
