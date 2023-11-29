@@ -3,9 +3,7 @@ from flask_socketio import SocketIO
 import RPi.GPIO as GPIO
 import picamera
 import cv2
-
 from control import change_state, power_up, power_down
-from camera_opencv import generate_frames
 
 app = Flask(__name__)
 socketio = SocketIO(app)
