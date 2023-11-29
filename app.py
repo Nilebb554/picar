@@ -38,11 +38,11 @@ def gen():
     except ImportError:
         print("camera not fucking working. Giving up on life")
         return
-   while True: 
-       rval, frame = vc.read() 
-       cv2.imwrite('pic.jpg', frame) 
-       yield (b'--frame\r\n' 
-              b'Content-Type: image/jpeg\r\n\r\n' + open('pic.jpg', 'rb').read() + b'\r\n')
+    while True: 
+        rval, frame = vc.read() 
+        cv2.imwrite('pic.jpg', frame) 
+        yield (b'--frame\r\n' 
+            b'Content-Type: image/jpeg\r\n\r\n' + open('pic.jpg', 'rb').read() + b'\r\n')
 
 if __name__ == "__main__":
     socketio.run(app, host="0.0.0.0", port=5000, debug=True)
