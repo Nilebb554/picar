@@ -33,8 +33,8 @@ def handle_keyState(keyState):
     change_state(keyState)
 
 def gen(): 
-   """Video streaming generator function.""" 
-   try: 
+   """Video streaming generator function."""
+   try:
         import picamera
     except ImportError:
         print("Picamera errror: Help me plz")
