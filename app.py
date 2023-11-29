@@ -1,7 +1,6 @@
 from flask import Flask, render_template, Response
 from flask_socketio import SocketIO
 import RPi.GPIO as GPIO
-import picamera
 import cv2
 from control import change_state, power_up, power_down
 
@@ -16,8 +15,8 @@ def hello_world():
 @app.route('/video')
 def video_feed(): 
    """Video streaming route. Put this in the src attribute of an img tag.""" 
-   return Response(gen(), 
-                   mimetype='multipart/x-mixed-replace; boundary=frame') 
+   return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame') 
+
 @socketio.on("connect")
 def connect():
     power_up()
@@ -35,6 +34,7 @@ def handle_keyState(keyState):
 
 def gen(): 
    """Video streaming generator function.""" 
+   import picamera
    while True: 
        rval, frame = vc.read() 
        cv2.imwrite('pic.jpg', frame) 
