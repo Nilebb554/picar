@@ -1,5 +1,6 @@
 from flask import Flask, render_template, Response
 from flask_socketio import SocketIO
+import picamera
 
 from control import change_state, power_up, power_down
 from camera_opencv import generate_frames
