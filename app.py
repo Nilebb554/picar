@@ -2,7 +2,7 @@ from flask import Flask, render_template, Response
 from flask_socketio import SocketIO
 import RPi.GPIO as GPIO
 from control import change_state, power_up, power_down
-from camera import Camera
+import cv2
 
 app = Flask(__name__)
 socketio = SocketIO(app)
@@ -27,10 +27,15 @@ def handle_keyState(keyState):
     change_state(keyState)
 
 def gen():
+    vs = cv2.VideoCapture(0)
     while True: 
-        frame = camera.get_frame()
+        ret,frame=vs.read()
+        ret, jpeg = cv2.imencode(".jpg", frame)
+        frame=jpeg.tobytes()
         yield (b'--frame\r\n' 
-            b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+        b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+    vs.release()
+    cv2.destroyAllWindows()
 
 @app.route('/video_feed')
 def video_feed(): 
@@ -38,4 +43,4 @@ def video_feed():
                     mimetype='multipart/x-mixed-replace; boundary=frame') 
 
 if __name__ == "__main__":
-    socketio.run(app, host="0.0.0.0", port=5000, debug=True)
+    socketio.run(app,host="0.0.0.0", port=5000, debug=True, threaded=True)
