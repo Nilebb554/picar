@@ -1,5 +1,6 @@
 from flask import Flask, render_template, Response
 from flask_socketio import SocketIO
+import RPi.GPIO as GPIO
 import picamera
 import cv2
 
@@ -8,7 +9,7 @@ from camera_opencv import generate_frames
 
 app = Flask(__name__)
 socketio = SocketIO(app)
-vc = cv2.VideoCapture(0)
+camera = cv2.VideoCapture(0)
 
 @app.route('/')
 def hello_world():
