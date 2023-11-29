@@ -27,7 +27,7 @@ def generate_frames():
 def hello_world():
     return render_template("index.html")
 
-@app.route('/video')
+@app.route('/video_feed')
 def video():
     return Response(generate_frames(),mimetype='multipart/x-mixed-replace; boundary=frame')
 
