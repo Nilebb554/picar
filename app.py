@@ -34,7 +34,12 @@ def handle_keyState(keyState):
 
 def gen(): 
    """Video streaming generator function.""" 
-   import picamera
+   try: 
+        import picamera
+    except ImportError:
+        print("Picamera errror: Help me plz")
+        return
+
    while True: 
        rval, frame = vc.read() 
        cv2.imwrite('pic.jpg', frame) 
