@@ -1,27 +1,12 @@
 from flask import Flask, render_template, Response
-import cv2
-
 from flask_socketio import SocketIO
-import RPi.GPIO as GPIO
+
 from control import change_state, power_up, power_down
+from camera_opencv import generate_frames
 
 app = Flask(__name__)
 socketio = SocketIO(app)
 camera=cv2.VideoCapture(0)
-
-def generate_frames():
-    while True:
-            
-        ## read the camera frame
-        success,frame=camera.read()
-        if not success:
-            break
-        else:
-            ret,buffer=cv2.imencode('.jpg',frame)
-            frame=buffer.tobytes()
-
-        yield(b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
 @app.route('/')
 def hello_world():
