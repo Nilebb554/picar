@@ -16,7 +16,7 @@ class Camera(object):
             while self.frame is None:
                 time.sleep(0)
 
-    def get_frames(self)
+    def get_frames(self):
         Camera.last_access = time.time()
         slef.initialize()
         return self.frame
