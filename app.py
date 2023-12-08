@@ -1,27 +1,22 @@
 from flask import Flask, render_template, Response
-import cv2
-
 from flask_socketio import SocketIO
 import RPi.GPIO as GPIO
 from control import change_state, power_up, power_down
 
+from picamera import PiCamera
+import io
+
 app = Flask(__name__)
 socketio = SocketIO(app)
-camera=cv2.VideoCapture(0)
+camera = PiCamera()
 
 def generate_frames():
     while True:
-            
-        ## read the camera frame
-        success,frame=camera.read()
-        if not success:
-            break
-        else:
-            ret,buffer=cv2.imencode('.jpg',frame)
-            frame=buffer.tobytes()
-
+        stream = io.BytesIO()
+        camera.capture(stream, format="jpeg")   
+        frame=stream.getvalue()
         yield(b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+              b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
 @app.route('/')
 def hello_world():
