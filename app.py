@@ -3,7 +3,7 @@ from flask_socketio import SocketIO
 import RPi.GPIO as GPIO
 from control import change_state, power_up, power_down
 
-from picamera2 import Picamera2, JpegEncode, FileOutput
+from picamera2 import Picamera2, JpegEncoder, FileOutput
 from threading import Condition
 import io
 import time
@@ -21,9 +21,10 @@ class StreamingOutput(io.BufferedIOBase):
             self.frame = buf
             self.condition.notify_all()
 
-def generate_frame(): 
-    global cameraOutput
+picam2 = None
+cameraOutput = StreamingOutput()
 
+def generate_frame(): 
     while True:
         with cameraOutput.condition:
             cameraOutput.condition.wait()
