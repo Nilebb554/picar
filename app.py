@@ -3,30 +3,34 @@ from flask_socketio import SocketIO
 import RPi.GPIO as GPIO
 from control import change_state, power_up, power_down
 
-from picamera import PiCamera
-from picamera.array import PiRGBArray
-import cv2
+from picamera2 import Picamera2, JpegEncoder, FileOutput
+import io
+from threading import Condition
 import time
 
 app = Flask(__name__)
 socketio = SocketIO(app)
 
-def generate_frames():
-    with PiCamera() as camera:
-        camera.resolution = (640, 480)
-        camera.framerate = 30
-        raw_capture = PiRGBArray(camera, size=(640, 480))
-        time.sleep(0.1)
-    try:
-        for frame in camera.capture_continous(raw_capture, format="bgr", use_video_port=True):
-            image = frame.array
-            _, jpeg = cv2.imencode(".jpg", image)
-            frame = jpeg.tobytes()
-            yield (b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-            raw_capture.truncate(0)
-    finally:
-        cv2.destroyAllWindows()
+class StreamingOutput(io.BufferedIOBase):
+    def __init__(self):
+        self.frame = None
+        self.condition = Condition()
+
+    def write(self, buf):
+        with self.condition:
+            self.frame = buf
+            self.condition.notify_all()
+
+def generate_frame(): 
+    global cameraOutput
+
+    while True:
+        with cameraOutput.condition:
+            cameraOutput.condition.wait()
+            frame = cameraOutput.frame
+        yield (b'--frame\r\n'
+                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+
 
 @app.route('/')
 def hello_world():
@@ -34,7 +38,17 @@ def hello_world():
 
 @app.route('/video_feed')
 def video_feed():
-    return Response(generate_frames(),mimetype='multipart/x-mixed-replace; boundary=frame')
+    global picam2
+    global cameraOutput
+
+    if picam2 == None:
+        picam2 = picamera2.Picamera2()
+        picam2.configure(picam2.create_video_configuration(main={"size": (640, 480)}))
+        
+        cameraOutput = StreamingOutput()
+        picam2.start_recording(JpegEncoder(), FileOutput(cameraOutput))
+
+    return Response(generate_frame(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @socketio.on("connect")
 def connect():
