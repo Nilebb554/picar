@@ -4,6 +4,7 @@ import RPi.GPIO as GPIO
 from control import change_state, power_up, power_down
 
 from picamera2 import Picamera2
+import io
 import time
 
 app = Flask(__name__)
