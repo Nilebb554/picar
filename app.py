@@ -5,6 +5,9 @@ from control import change_state, power_up, power_down
 
 from threading import Condition
 from picamera2 import Picamera2
+from picamera2.encoders import JpegEncoder
+from picamera2.outputs import FileOutput
+
 import io
 import time
 
