@@ -3,24 +3,29 @@ from flask_socketio import SocketIO
 import RPi.GPIO as GPIO
 from control import change_state, power_up, power_down
 
+from picamera import Picamera
+from picamera.array import PiRGBArray
 import cv2
+import time
 
 app = Flask(__name__)
 socketio = SocketIO(app)
 
 def generate_frames():
-    stream = cv2.VideoCapture(0)
+    with PiCamera() as camera:
+        camera.resolution = (640, 480)
+        camera.framerate = 30
+        raw_capture = PiRGBArray(camera, size=(640, 480))
+        time.sleep(0.1)
     try:
-        while True:
-            ret, frame = stream.read()
-            if not ret:
-                break
-            jpeg = cv2.imencode('.jpg', frame)
+        for frame in camera.capture_continous(raw_capture, format="bgr", use_video_port=True):
+            image = frame.array
+            _, jpeg = cv2.imencode(".jpg", image)
             frame = jpeg.tobytes()
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+            raw_capture.truncate(0)
     finally:
-        stream.release()
         cv2.destroyAllWindows()
 
 @app.route('/')
