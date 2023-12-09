@@ -7,7 +7,6 @@ import cv2
 
 app = Flask(__name__)
 socketio = SocketIO(app)
-camera = PiCamera()
 
 def generate_frames():
     stream = cv2.VideoCapture(0)
