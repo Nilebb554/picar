@@ -3,7 +3,8 @@ from flask_socketio import SocketIO
 import RPi.GPIO as GPIO
 from control import change_state, power_up, power_down
 
-from picamera2 import Picamera2
+from picamera2 import Picamera2, JpegEncode, FileOutput
+from threading import Condition
 import io
 import time
 
