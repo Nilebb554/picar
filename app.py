@@ -3,8 +3,8 @@ from flask_socketio import SocketIO
 import RPi.GPIO as GPIO
 from control import change_state, power_up, power_down
 
-from picamera2 import Picamera2
 from threading import Condition
+from picamera2 import Picamera2
 import io
 import time
 
@@ -42,10 +42,9 @@ def video_feed():
     global picam2
     global cameraOutput
 
-    if picam2 == None:
-        picam2 = picamera2.Picamera2()
+    if picam2 is None:
+        picam2 = Picamera2()
         picam2.configure(picam2.create_video_configuration(main={"size": (640, 480)}))
-        
         cameraOutput = StreamingOutput()
         picam2.start_recording(JpegEncoder(), FileOutput(cameraOutput))
 
