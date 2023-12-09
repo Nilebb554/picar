@@ -3,9 +3,7 @@ from flask_socketio import SocketIO
 import RPi.GPIO as GPIO
 from control import change_state, power_up, power_down
 
-from picamera2 import Picamera2, JpegEncoder, FileOutput
-import io
-from threading import Condition
+from picamera2 import Picamera2
 import time
 
 app = Flask(__name__)
@@ -66,4 +64,4 @@ def handle_keyState(keyState):
     change_state(keyState)
 
 if __name__ == "__main__":
-    socketio.run(app, host="0.0.0.0", port=5000, debug=True, threaded=True)
+    socketio.run(app, host="0.0.0.0", port=5000, debug=True)
