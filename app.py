@@ -12,11 +12,13 @@ def generate_frames():
     stream = cv2.VideoCapture(0)
     try:
         while True:
-            frame=stream.read()
+            ret, frame = stream.read()
+            if not ret:
+                break
             jpeg = cv2.imencode('.jpg', frame)
-            frame=jpeg.tobytes()
-            yield(b'--frame\r\n'
-                  b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+            frame = jpeg.tobytes()
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
     finally:
         stream.release()
         cv2.destroyAllWindows()
@@ -45,4 +47,4 @@ def handle_keyState(keyState):
     change_state(keyState)
 
 if __name__ == "__main__":
-    socketio.run(app, host="0.0.0.0", port=5000, debug=True)
+    socketio.run(app, host="0.0.0.0", port=5000, debug=True, threaded=True)
