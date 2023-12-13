@@ -1,15 +1,15 @@
 from flask import Flask, render_template, Response
-# import cv2
+import cv2
 
 from flask_socketio import SocketIO
-# import RPi.GPIO as GPIO
-#from control import change_state, power_up, power_down
+import RPi.GPIO as GPIO
+from control import change_state, power_up, power_down
 
 app = Flask(__name__)
 socketio = SocketIO(app)
-#camera=cv2.VideoCapture(0)
+camera=cv2.VideoCapture(0)
 
-""" def generate_frames():
+def generate_frames():
     while True:
             
         ## read the camera frame
@@ -22,14 +22,14 @@ socketio = SocketIO(app)
 
         yield(b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
- """
+ 
 @app.route('/')
 def hello_world():
     return render_template("index.html")
 
-""" @app.route('/video_feed')
+@app.route('/video_feed')
 def video_feed():
-    return Response(generate_frames(),mimetype='multipart/x-mixed-replace; boundary=frame') """
+    return Response(generate_frames(),mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @socketio.on("connect")
 def connect():
