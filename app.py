@@ -1,9 +1,10 @@
-from flask import Flask, render_template, Response
-import cv2
-
+from flask import Flask, render_template,Response
 from flask_socketio import SocketIO
+
+import cv2
 import RPi.GPIO as GPIO
 from control import change_state, power_up, power_down
+
 
 app = Flask(__name__)
 socketio = SocketIO(app)
@@ -33,18 +34,18 @@ def video_feed():
 
 @socketio.on("connect")
 def connect():
-    #power_up()
+    power_up()
     print("Client connected")
 
 @socketio.on("disconnect")
 def disconnect():
-    #power_down()
+    power_down()
     print("Client disconnected")
 
 @socketio.on("keyState")
 def handle_keyState(keyState):
     print(keyState)
-    #change_state(keyState)
+    change_state(keyState)
 
 if __name__ == "__main__":
     socketio.run(app, host="0.0.0.0", port=5000, debug=True)

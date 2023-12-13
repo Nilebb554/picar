@@ -3,6 +3,8 @@ let keyState = {
     "y": 0
 };
 
+let keyAlreadyPressed = false;
+
 let keyDown = {
     ArrowUp: false,
     ArrowDown: false,
@@ -49,6 +51,7 @@ document.addEventListener("keyup", function(event) {
     if (event.key === "ArrowRight") {
         keyState["x"] -= 1;
     }
+
     console.log(keyState);
     socket.emit("keyState", keyState);
 });
