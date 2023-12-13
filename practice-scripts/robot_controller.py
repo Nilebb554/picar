@@ -1,29 +1,40 @@
-import socketio
+from gpiozero import Robot
+import time
 
-sio = socketio.Server()
-app = socketio.WSGIApp(sio) #run with gunicorn --threads 50 robot_controller:app maybe
-robot_state = {
-    "left": 0,
-    "right": 0,
-    "forward": 0,
-    "backward": 0
-}
+robot = Robot(left=(19, 21), right=(24, 26))
 
-@sio.event
-def connect(sid, environ):
-    print(sid, "connected")
+def move_forward(speed=0.5, duration=1):
+    robot.forward(speed)
+    time.sleep(duration)
+    robot.stop()
 
-@sio.event
-def connect_error(sid):
-    print(sid, "connection failed")
+def move_backward(speed=0.5, duration=1):
+    robot.backward(speed)
+    time.sleep(duration)
+    robot.stop()
 
-@sio.event
-def disconnect(sid):
-    print(sid, "disconnected")
+def move_left(speed=0.5, duration=1):
+    robot.left(speed)
+    time.sleep(duration)
+    robot.stop()
 
+def move_right(speed=0.5, duration=1):
+    robot.right(speed)
+    time.sleep(duration)
+    robot.stop()
 
-@sio.on("get_robot_state")
-def get_robot_state(sid, data):
-    global robot_state
-    robot_state = data
-    print(robot_state)
+try:
+    while True:
+        move = input("Where to move (forward, backward, left, right, stop): ")
+        if move == "forward":
+            move_forward()
+        elif move == "backward":
+            move_backward()
+        elif move == "left":
+            move_left()
+        elif move == "right":
+            move_right()
+        elif move == "stop":
+            robot.stop()
+finally:
+    robot.stop()
