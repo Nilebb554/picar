@@ -9,6 +9,9 @@ from control import change_state, power_up, power_down
 import io
 import time
 
+import io
+import time
+
 app = Flask(__name__)
 socketio = SocketIO(app)
 camera=cv2.VideoCapture(0)
