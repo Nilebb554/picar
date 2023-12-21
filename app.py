@@ -1,5 +1,7 @@
+
 from flask import Flask, render_template, Response
 from flask_socketio import SocketIO
+
 import RPi.GPIO as GPIO
 from control import change_state, power_up, power_down
 
@@ -7,9 +9,6 @@ from threading import Condition
 from picamera2 import Picamera2
 from picamera2.encoders import JpegEncoder
 from picamera2.outputs import FileOutput
-
-import io
-import time
 
 app = Flask(__name__)
 socketio = SocketIO(app)
@@ -34,8 +33,7 @@ def generate_frame():
             frame = cameraOutput.frame
         yield (b'--frame\r\n'
                 b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-
-
+ 
 @app.route('/')
 def hello_world():
     return render_template("index.html")

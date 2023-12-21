@@ -1,8 +1,15 @@
-const keyState = {
-    "forward": 0,
-    "backward": 0,
-    "left": 0,
-    "right": 0
+let keyState = {
+    "x": 0,
+    "y": 0
+};
+
+let keyAlreadyPressed = false;
+
+let keyDown = {
+    ArrowUp: false,
+    ArrowDown: false,
+    ArrowLeft: false,
+    ArrowRight: false
 };
 
 let socket = io();
@@ -11,35 +18,40 @@ socket.on('connect', function(){
 });
 
 document.addEventListener("keydown", function(event) {
-    if (event.key === "ArrowUp") {
-        keyState["forward"] = 1;
+    if (!keyDown[event.key]) {
+        keyDown[event.key] = true;
+        if (event.key === "ArrowUp") {
+            keyState["y"] += 1;
+        }
+        if (event.key === "ArrowDown") {
+            keyState["y"] -= 1;
+        }
+        if (event.key === "ArrowLeft") {
+            keyState["x"] -= 1;
+        }
+        if (event.key === "ArrowRight") {
+            keyState["x"] += 1;
+        }
+        console.log(keyState);
+        socket.emit("keyState", keyState);
     }
-    if (event.key === "ArrowDown") {
-        keyState["backward"] = 1;
-    }
-    if (event.key === "ArrowLeft") {
-        keyState["left"] = 1;
-    }
-    if (event.key === "ArrowRight") {
-        keyState["right"] = 1;
-    }
-    console.log(keyState);
-    socket.emit("keyState", keyState)
 });
 
 document.addEventListener("keyup", function(event) {
+    keyDown[event.key] = false;
     if (event.key === "ArrowUp") {
-        keyState["forward"] = 0;
+        keyState["y"] -= 1;
     }
     if (event.key === "ArrowDown") {
-        keyState["backward"] = 0;
+        keyState["y"] += 1;
     }
     if (event.key === "ArrowLeft") {
-        keyState["left"] = 0;
+        keyState["x"] += 1;
     }
     if (event.key === "ArrowRight") {
-        keyState["right"] = 0;
+        keyState["x"] -= 1;
     }
+
     console.log(keyState);
-    socket.emit("keyState", keyState)
+    socket.emit("keyState", keyState);
 });
