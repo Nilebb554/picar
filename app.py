@@ -1,32 +1,41 @@
 from flask import Flask, render_template,Response
 from flask_socketio import SocketIO
 
-import cv2
 import RPi.GPIO as GPIO
 from control import change_state, power_up, power_down
 
+from threading import Condition
+from picamera2 import Picamera2
+from picamera2.encoders import JpegEncoder
+from picamera2.outputs import FileOutput
 
 import io
 import time
 
-import io
-import time
 
 app = Flask(__name__)
 socketio = SocketIO(app)
-camera=cv2.VideoCapture(0)
+
+class StreamingOutput(io.BufferedIOBase):
+    def __init__(self):
+        self.frame = None
+        self.condition = Condition()
+
+    def write(self, buf):
+        with self.condition:
+            self.frame = buf
+            self.condition.notify_all()
+
+picam2 = None
+CameraOutput = StreamingOutput()
 
 def generate_frames():
     while True:
-        success,frame=camera.read()
-        if not success:
-            break
-        else:
-            ret,buffer=cv2.imencode('.jpg',frame)
-            frame=buffer.tobytes()
-
-        yield(b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+        with cameraOutput.condition:
+            cameraOutput.condition.wait()
+            frame = cameraOutput.frame
+        yield (b'--frame\r\n'
+                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
  
 @app.route('/')
 def hello_world():
@@ -34,6 +43,15 @@ def hello_world():
 
 @app.route('/video_feed')
 def video_feed():
+    global picam2
+    global cameraOutput
+
+    if picam2 is None:
+        picam2 = Picamera2()
+        picam2.configure(picam2.create_video_configuration(main={"size": (640, 480)}))
+        cameraOutput = StreamingOutput()
+        picam2.start_recording(JpegEncoder(), FileOutput(cameraOutput))
+    
     return Response(generate_frames(),mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @socketio.on("connect")
