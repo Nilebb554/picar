@@ -1,10 +1,9 @@
-from flask import Flask, render_template,Response
-from flask_socketio import SocketIO
-
+from flask import Flask, render_template, Response
 import cv2
+
+from flask_socketio import SocketIO
 import RPi.GPIO as GPIO
 from control import change_state, power_up, power_down
-
 
 app = Flask(__name__)
 socketio = SocketIO(app)
@@ -23,7 +22,7 @@ def generate_frames():
 
         yield(b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
- 
+
 @app.route('/')
 def hello_world():
     return render_template("index.html")
