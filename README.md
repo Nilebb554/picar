@@ -1,17 +1,9 @@
-# picar
-Internet PiCar
-To create local venv
-"python -m venv venv"
+# Internet PiCar: Guide to setup raspberry pi 4 with Picamera 
 
-To start venv: "source venv/bin/activate", when in flask_app.
-This will make it so that the same version of dependencies are used.
+# Setup virtual enviorment
+1. python -m venv venv --system-site-packages
+2. source venv/bin/activate
+3. pip install -r requirements.txt
 
-To install all dependencies run: 
-"pip install -r requirements.txt"
-
-
-To run flask app
-cd into venv. type "flask run".
-
-
-git pull origin main
+# To start
+1. flask run --host= your ip
