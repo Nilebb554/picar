@@ -12,8 +12,6 @@ camera=cv2.VideoCapture(0)
 
 def generate_frames():
     while True:
-            
-        ## read the camera frame
         success,frame=camera.read()
         if not success:
             break
