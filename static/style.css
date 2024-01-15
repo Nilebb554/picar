@@ -3,14 +3,17 @@ body {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin: 0;
     padding: 0;
-    height: 100vh;
     overflow: hidden;
-    background-color: rgb(27, 27, 27);
+    background-color: #000;
+    font-family: 'Courier New', monospace;
+    color: #00ff00; /* Green text color */
 }
 
 #video-container {
-    flex: 1;
-    overflow: hidden;
+    width: 100%;
+    margin: 40px;
+    margin-top: 10px;
+    border-style: solid;
+    border-color: #00ff00; /* Green border color */
 }
