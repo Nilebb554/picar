@@ -20,8 +20,8 @@ body {
 
 #control-buttons {
     position: fixed;
-    bottom: 200px;
-    right: 200px;
+    bottom: 20px;
+    right: 20px;
     display: grid;
     grid-template-areas: 
         ". up ."
@@ -46,7 +46,6 @@ body {
     background-color: green;
 }
 
-}
 
 #function-buttons {
     display: flex;
@@ -65,3 +64,4 @@ body {
     border-radius: 5px; 
     cursor: pointer;
 }
+
