@@ -7,7 +7,7 @@ body {
     overflow: hidden;
     background-color: #000;
     font-family: 'Courier New', monospace;
-    color: #00ff00; /* Green text color */
+    color: #00ff00;
 }
 
 #video-container {
@@ -15,5 +15,5 @@ body {
     margin: 40px;
     margin-top: 10px;
     border-style: solid;
-    border-color: #00ff00; /* Green border color */
+    border-color: #00ff00;
 }
