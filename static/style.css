@@ -15,5 +15,35 @@ body {
     margin: 40px;
     margin-top: 10px;
     border-style: solid;
-    border-color: #00ff00; /* Green border color */
+    border-color: #00ff00; 
 }
+
+
+#control-buttons {
+    position: fixed;
+    bottom: 200px;
+    right: 200px;
+    display: grid;
+    grid-template-areas: 
+        ". up ."
+        "left down right";
+    gap: 5px;
+}
+
+#control-buttons button {
+    background-color: white;
+    border: 20px solid white;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#up { grid-area: up; }
+#down { grid-area: down; }
+#left { grid-area: left; }
+#right { grid-area: right; }
+
+
+.active {
+    background-color: green;
+}
+
