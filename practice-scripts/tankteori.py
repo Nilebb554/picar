@@ -1,6 +1,6 @@
 import math
 
-def tank_drive(x, y):
+def advanced_tank_drive(x, y):
     if x == 0 and y == 0:
         left_speed = 0
         right_speed = 0
@@ -29,9 +29,22 @@ def tank_drive(x, y):
         left_speed = max(min(left_speed, 100), -100)
         right_speed = max(min(right_speed, 100), -100)
 
+    print("Right Speed:", right_speed*100)
+    print("Left Speed:", left_speed*100)
+
+def simple_tank_drive(x, y): 
+    
+    max_speed = 100 
+    left_speed = max_speed * (y + x)
+    right_speed = max_speed * (y - x)
+
+    left_speed = max(min(left_speed, max_speed), -max_speed)
+    right_speed = max(min(right_speed, max_speed), -max_speed)
+
     print("Right Speed:", right_speed)
     print("Left Speed:", left_speed)
 
-x = -1
-y = 0
-tank_drive(x, y)
+
+x = 0
+y =0.984
+simple_tank_drive(x, y)

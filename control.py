@@ -32,10 +32,7 @@ def power_down():
     rb_pwm.stop()
     GPIO.cleanup()
 
-def calculate_motor_speeds(x, y): 
-    import math
-
-def tank_drive(x, y):
+def advanced_calculate_motor_speeds(x, y):
     if x == 0 and y == 0:
         left_speed = 0
         right_speed = 0
@@ -70,9 +67,21 @@ def tank_drive(x, y):
 
     return left_speed*100, right_speed*100
 
+def simple_calculate_motor_speeds(x, y): 
+    
+    max_speed = 100 
+    left_speed = max_speed * (y + x)
+    right_speed = max_speed * (y - x)
+
+    left_speed = max(min(left_speed, max_speed), -max_speed)
+    right_speed = max(min(right_speed, max_speed), -max_speed)
+
+    print("Right Speed:", right_speed)
+    print("Left Speed:", left_speed)
+
 def change_motor_speeds(state):
     #convert it to number between -100 and 100
-    left_speed, right_speed = calculate_motor_speeds(state["x"], state["y"])
+    left_speed, right_speed = advanced_calculate_motor_speeds(state["x"], state["y"])
 
     if left_speed > 0:
         lf_pwm.ChangeDutyCycle(left_speed)
