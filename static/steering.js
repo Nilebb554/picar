@@ -35,6 +35,7 @@ document.addEventListener("keydown", function(event) {
         console.log(keyState);
         socket.emit("keyState", keyState);
     }
+    updateButtonStyle(event.key, true);
 });
 
 document.addEventListener("keyup", function(event) {
@@ -51,7 +52,31 @@ document.addEventListener("keyup", function(event) {
     if (event.key === "ArrowRight") {
         keyState["x"] -= 1;
     }
-
     console.log(keyState);
     socket.emit("keyState", keyState);
+
+    updateButtonStyle(event.key, false);
 });
+
+function updateButtonStyle(key, isPressed) {
+    let buttonId;
+    switch (key) {
+        case "ArrowUp":
+            buttonId = "up";
+            break;
+        case "ArrowDown":
+            buttonId = "down";
+            break;
+        case "ArrowLeft":
+            buttonId = "left";
+            break;
+        case "ArrowRight":
+            buttonId = "right";
+            break;
+    }
+
+    if (buttonId) {
+        const button = document.getElementById(buttonId);
+        button.classList.toggle("active", isPressed);
+    }
+}

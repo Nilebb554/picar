@@ -40,12 +40,6 @@ body {
 #left { grid-area: left; }
 #right { grid-area: right; }
 
-
-.active {
-    background-color: green;
-}
-
-
 #function-buttons {
     display: flex;
     flex-direction: column;
@@ -64,3 +58,8 @@ body {
     cursor: pointer;
 }
 
+
+#control-buttons .active {
+    background-color: green;
+    border: 20px solid;
+}
