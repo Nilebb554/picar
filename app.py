@@ -1,13 +1,13 @@
 from flask import Flask, render_template,Response
 from flask_socketio import SocketIO
 
-#import RPi.GPIO as GPIO
-#from control import change_state, power_up, power_down
+import RPi.GPIO as GPIO
+from control import change_state, power_up, power_down
 
 from threading import Condition
-#from picamera2 import Picamera2
-#from picamera2.encoders import JpegEncoder
-#from picamera2.outputs import FileOutput
+from picamera2 import Picamera2
+from picamera2.encoders import JpegEncoder
+from picamera2.outputs import FileOutput
 
 import io
 import time
@@ -26,8 +26,8 @@ class StreamingOutput(io.BufferedIOBase):
             self.frame = buf
             self.condition.notify_all()
 
-#picam2 = None
-#CameraOutput = StreamingOutput()
+picam2 = None
+CameraOutput = StreamingOutput()
 
 def generate_frames():
     while True:
