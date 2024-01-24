@@ -91,7 +91,7 @@ def change_motor_speeds(state):
         lb_pwm.ChangeDutyCycle(0)
     elif left_speed < 0:
         lf_pwm.ChangeDutyCycle(0)
-        lb_pwm.ChangeDutyCycle(left_speed)
+        lb_pwm.ChangeDutyCycle(-left_speed)
     else:
         lf_pwm.ChangeDutyCycle(0)
         lb_pwm.ChangeDutyCycle(0)
@@ -101,7 +101,7 @@ def change_motor_speeds(state):
         rb_pwm.ChangeDutyCycle(0)
     elif right_speed < 0:
         rf_pwm.ChangeDutyCycle(0)
-        rb_pwm.ChangeDutyCycle(right_speed)
+        rb_pwm.ChangeDutyCycle(-right_speed)
     else:
         rf_pwm.ChangeDutyCycle(0)
         rb_pwm.ChangeDutyCycle(0)
