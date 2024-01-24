@@ -2,7 +2,7 @@ from flask import Flask, render_template,Response
 from flask_socketio import SocketIO
 
 import RPi.GPIO as GPIO
-from control import change_state, power_up, power_down
+from control import change_motor_speeds, power_up, power_down
 
 from threading import Condition
 from picamera2 import Picamera2
@@ -26,6 +26,8 @@ class StreamingOutput(io.BufferedIOBase):
             self.frame = buf
             self.condition.notify_all()
 
+picam2 = None
+CameraOutput = StreamingOutput()
 picam2 = None
 CameraOutput = StreamingOutput()
 
@@ -67,7 +69,7 @@ def disconnect():
 @socketio.on("keyState")
 def handle_keyState(keyState):
     print(keyState)
-    change_state(keyState)
+    change_motor_speeds(keyState)
 
 if __name__ == "__main__":
     socketio.run(app, host="0.0.0.0", port=5000, debug=True)
