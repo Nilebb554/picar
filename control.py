@@ -7,7 +7,10 @@ LB = 24
 RF = 21
 RB = 19
 
+GPIO.setmode(GPIO.BCM)
+
 def power_up():
+    GPIO.setmode(GPIO.BCM)
     global lf_pwm, lb_pwm, rf_pwm, rb_pwm
     GPIO.setup(LF, GPIO.OUT)
     lf_pwm = GPIO.PWM(LF, 20)
