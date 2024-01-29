@@ -45,6 +45,6 @@ def simple_tank_drive(x, y):
     print("Left Speed:", left_speed)
 
 
-x = 0
-y =0.984
+x = 1
+y =1
 simple_tank_drive(x, y)
