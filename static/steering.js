@@ -49,11 +49,11 @@ function handleKeyEvent(event) {
                     break;
                 case "ArrowLeft":
                 case "a":
-                    keyState["x"] = isKeyDown ? -speed : 0;
+                    keyState["x"] = isKeyDown ? -1 : 0;
                     break;
                 case "ArrowRight":
                 case "d":
-                    keyState["x"] = isKeyDown ? speed : 0;
+                    keyState["x"] = isKeyDown ? 1 : 0;
                     break;
             }
         }
