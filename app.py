@@ -1,13 +1,13 @@
 from flask import Flask, render_template,Response
 from flask_socketio import SocketIO
 
-import RPi.GPIO as GPIO
-from control import change_motor_speeds, power_up, power_down
+#import RPi.GPIO as GPIO
+#from control import change_motor_speeds, power_up, power_down
 
-from threading import Condition
-from picamera2 import Picamera2
-from picamera2.encoders import JpegEncoder
-from picamera2.outputs import FileOutput
+#from threading import Condition
+#from picamera2 import Picamera2
+#from picamera2.encoders import JpegEncoder
+#from picamera2.outputs import FileOutput
 
 import io
 import time
@@ -26,10 +26,10 @@ class StreamingOutput(io.BufferedIOBase):
             self.frame = buf
             self.condition.notify_all()
 
-picam2 = None
-CameraOutput = StreamingOutput()
-picam2 = None
-CameraOutput = StreamingOutput()
+#picam2 = None
+#CameraOutput = StreamingOutput()
+#picam2 = None
+#CameraOutput = StreamingOutput()
 
 def generate_frames():
     while True:
@@ -58,18 +58,18 @@ def video_feed():
 
 @socketio.on("connect")
 def connect():
-    power_up()
+    #power_up()
     print("Client connected")
 
 @socketio.on("disconnect")
 def disconnect():
-    power_down()
+    #power_down()
     print("Client disconnected")
 
 @socketio.on("keyState")
 def handle_keyState(keyState):
     print(keyState)
-    change_motor_speeds(keyState)
+    #change_motor_speeds(keyState)
 
 if __name__ == "__main__":
     socketio.run(app, host="0.0.0.0", port=5000, debug=True)

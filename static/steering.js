@@ -5,7 +5,9 @@ let keyState = {
 
 let keyAlreadyPressed = false;
 
-let keyDown = {
+let speed = 1;
+
+let keyStatus = {
     ArrowUp: false,
     ArrowDown: false,
     ArrowLeft: false,
@@ -13,50 +15,53 @@ let keyDown = {
 };
 
 let socket = io();
-socket.on('connect', function(){
+socket.on('connect', function () {
     console.log("Starting connection")
 });
 
-document.addEventListener("keydown", function(event) {
-    if (!keyDown[event.key]) {
-        keyDown[event.key] = true;
-        if (event.key === "ArrowUp") {
-            keyState["y"] = 1;
+document.addEventListener("keydown", function (event) {
+    handleKeyEvent(event);
+});
+
+document.addEventListener("keyup", function (event) {
+    handleKeyEvent(event);
+});
+
+function handleKeyEvent(event) {
+    const isKeyDown = event.type === "keydown";
+    const { key } = event;
+
+    if (keyStatus[key] !== isKeyDown) {
+        keyStatus[key] = isKeyDown;
+        if (key === ",") {
+            speed = parseFloat(Math.max(0, speed - 0.1).toFixed(3));
+        } else if (key === ".") {
+            speed = parseFloat(Math.min(1, speed + 0.1).toFixed(3));
+        } else {
+            switch (key) {
+                case "ArrowUp":
+                case "w":
+                    keyState["y"] = isKeyDown ? speed : 0;
+                    break;
+                case "ArrowDown":
+                case "s":
+                    keyState["y"] = isKeyDown ? -speed : 0;
+                    break;
+                case "ArrowLeft":
+                case "a":
+                    keyState["x"] = isKeyDown ? -speed : 0;
+                    break;
+                case "ArrowRight":
+                case "d":
+                    keyState["x"] = isKeyDown ? speed : 0;
+                    break;
+            }
         }
-        if (event.key === "ArrowDown") {
-            keyState["y"] = -1;
-        }
-        if (event.key === "ArrowLeft") {
-            keyState["x"] = -1;
-        }
-        if (event.key === "ArrowRight") {
-            keyState["x"] = 1;
-        }
-        console.log(keyState);
+
         socket.emit("keyState", keyState);
+        updateButtonStyle(key, isKeyDown);
     }
-    updateButtonStyle(event.key, true);
-});
-
-document.addEventListener("keyup", function(event) {
-    keyDown[event.key] = false;
-    if (event.key === "ArrowUp") {
-        keyState["y"] = -1;
-    }
-    if (event.key === "ArrowDown") {
-        keyState["y"] = 1;
-    }
-    if (event.key === "ArrowLeft") {
-        keyState["x"] = 1;
-    }
-    if (event.key === "ArrowRight") {
-        keyState["x"] = -1;
-    }
-    console.log(keyState);
-    socket.emit("keyState", keyState);
-
-    updateButtonStyle(event.key, false);
-});
+}
 
 function updateButtonStyle(key, isPressed) {
     let buttonId;
@@ -74,7 +79,6 @@ function updateButtonStyle(key, isPressed) {
             buttonId = "right";
             break;
     }
-
     if (buttonId) {
         const button = document.getElementById(buttonId);
         button.classList.toggle("active", isPressed);

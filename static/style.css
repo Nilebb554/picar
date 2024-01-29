@@ -58,8 +58,8 @@ body {
     cursor: pointer;
 }
 
-
 #control-buttons .active {
-    background-color: green;
-    border: 20px solid;
+    background: linear-gradient(to bottom, #4CAF50, #45A049);
+    border: 20px solid green;
+    color: #ffffff;
 }
