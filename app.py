@@ -48,6 +48,7 @@ def video_feed():
 
     if picam2 is None:
         picam2 = Picamera2()
+        picam2.rotation = 180
         camera_config = picam2.create_video_configuration(main={"size": (1200, 600)})
         picam2.configure(camera_config)
         cameraOutput = StreamingOutput()
