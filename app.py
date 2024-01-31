@@ -66,20 +66,6 @@ def disconnect():
     power_down()
     print("Client disconnected")
 
-def simple_calculate_motor_speeds(x, y): 
-    
-    max_speed = 100 
-    left_speed = max_speed * y
-    right_speed = max_speed * y
-
-    if x > 0:
-        left_speed *= (1 - x)
-    elif x < 0:
-        right_speed *= (1 + x)
-
-    print("Right Speed:", right_speed)
-    print("Left Speed:", left_speed)
-
 @socketio.on("keyState")
 def handle_keyState(keyState):
     print(keyState)
