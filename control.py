@@ -35,7 +35,10 @@ def power_down():
 
 def simple_calculate_motor_speeds(x, y): 
     max_speed = 100
-
+    
+    left_speed = 0
+    right_speed = 0
+    
     left_speed = max(min(left_speed, max_speed), -max_speed)
     right_speed = max(min(right_speed, max_speed), -max_speed)
 
