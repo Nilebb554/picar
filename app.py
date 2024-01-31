@@ -8,7 +8,6 @@ from threading import Condition
 from picamera2 import Picamera2
 from picamera2.encoders import JpegEncoder
 from picamera2.outputs import FileOutput
-from libcamera import Transform
 
 import io
 import time
@@ -50,7 +49,6 @@ def video_feed():
     if picam2 is None:
         picam2 = Picamera2()
         camera_config = picam2.create_video_configuration(main={"size": (1200, 600)})
-        camera_config["transform"] = libcamera.Transform(hflip=1, vflip=1)
         picam2.configure(camera_config)
         cameraOutput = StreamingOutput()
         picam2.start_recording(JpegEncoder(), FileOutput(cameraOutput))
