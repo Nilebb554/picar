@@ -49,9 +49,11 @@ def video_feed():
 
     if picam2 is None:
         picam2 = Picamera2()
-        picam2.configure(picam2.create_video_configuration(main={"size": (1200, 600)}))
+        camera_config = picam2.create_video_configuration(main={"size": (1200, 600)})
+        camera_config["transform"] = libcamera.Transform(hflip=1, vflip=1)
+        picam2.configure(camera_config)
         cameraOutput = StreamingOutput()
-        transform = Transform(hflip=1, vflip=1) 
+        transform = Transform(hflip=0, vflip=1) 
         picam2.start_recording(JpegEncoder(), FileOutput(cameraOutput))
     
     return Response(generate_frames(),mimetype='multipart/x-mixed-replace; boundary=frame')
