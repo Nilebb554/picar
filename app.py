@@ -1,14 +1,14 @@
 from flask import Flask, render_template,Response
 from flask_socketio import SocketIO
 
-#import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 from control import change_motor_speeds, power_up, power_down
 
-#from threading import Condition
-#from picamera2 import Picamera2
-#from picamera2.encoders import JpegEncoder
-#from picamera2.outputs import FileOutput
-#import libcamera
+from threading import Condition
+from picamera2 import Picamera2
+from picamera2.encoders import JpegEncoder
+from picamera2.outputs import FileOutput
+import libcamera
 
 import io
 import time
@@ -27,8 +27,8 @@ class StreamingOutput(io.BufferedIOBase):
             self.frame = buf
             self.condition.notify_all()
             
-#picam2 = None
-#CameraOutput = StreamingOutput()
+picam2 = None
+CameraOutput = StreamingOutput()
 
 def generate_frames():
     while True:
@@ -59,45 +59,18 @@ def video_feed():
 
 @socketio.on("connect")
 def connect():
-    #power_up()
+    power_up()
     print("Client connected")
 
 @socketio.on("disconnect")
 def disconnect():
-    #power_down()
+    power_down()
     print("Client disconnected")
-
-def simple_calculate_motor_speeds(x, y): 
-    max_speed = 100
-
-    left_speed = max_speed * y
-    right_speed = max_speed * y
-
-    left_speed = max(min(left_speed, max_speed), -max_speed)
-    right_speed = max(min(right_speed, max_speed), -max_speed)
-    
-    if y == 0:
-        if x > 0:
-            left_speed = x*100
-            right_speed = -x*100
-        elif x < 0:
-            left_speed = x*100
-            right_speed = -x*100
-    else:
-        if x > 0:
-            right_speed *= (1 - x)
-        elif x < 0:
-            left_speed *= (1 + x)
-         
-    print("Right Speed:", right_speed)
-    print("Left Speed:", left_speed)
-    return left_speed, right_speed
 
 @socketio.on("keyState")
 def handle_keyState(keyState):
     print(keyState)
-    simple_calculate_motor_speeds(keyState["x"], keyState["y"])
-    #change_motor_speeds(keyState)
+    change_motor_speeds(keyState)
     
     
 if __name__ == "__main__":
