@@ -54,7 +54,7 @@ def simple_calculate_motor_speeds(x, y):
             left_speed *= (1 - x)
         elif x < 0:
             right_speed *= (1 + x)
-       
+         
     print("Right Speed:", right_speed)
     print("Left Speed:", left_speed)
     return left_speed, right_speed
@@ -63,10 +63,10 @@ def change_motor_speeds(state):
     #convert it to number between -100 and 100
     left_speed, right_speed = simple_calculate_motor_speeds(state["x"], state["y"])
 
-    if left_speed > 0:
+    if left_speed >= 0:
         lf_pwm.ChangeDutyCycle(left_speed)
         lb_pwm.ChangeDutyCycle(0)
-    elif left_speed < 0:
+    elif left_speed <= 0:
         lf_pwm.ChangeDutyCycle(0)
         lb_pwm.ChangeDutyCycle(-left_speed)
     else:
