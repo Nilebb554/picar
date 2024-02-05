@@ -40,8 +40,6 @@ function handleKeyEvent(event) {
                 keyState["y"] = speed;
             } else if (keyStatus["ArrowDown"] && isKeyDown) {
                 keyState["y"] = -speed;
-            } else {
-                keyState["y"] = isKeyDown ? speed : 0;
             }
         } else if (key === ".") {
             speed = parseFloat(Math.min(1, speed + 0.1).toFixed(3));
@@ -70,7 +68,12 @@ function handleKeyEvent(event) {
                 keyState["x"] = isKeyDown ? 1 : 0;
                 break;
         }
-
+        if (keyState["y"] == 0) {
+            if (keyState["x"] > 0)
+                keyState["x"] = speed;
+            else if (keyState["x"] < 0)
+                keyState["x"] = -speed;
+        }     
         socket.emit("keyState", keyState);
         updateButtonStyle(key, isKeyDown);
     }

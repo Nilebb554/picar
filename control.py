@@ -1,4 +1,4 @@
-import RPi.GPIO as GPIO
+#import RPi.GPIO as GPIO
 import math
 import time
 
@@ -51,9 +51,9 @@ def simple_calculate_motor_speeds(x, y):
             right_speed = x*100
     else:
         if x > 0:
-            left_speed *= (1 - x)
+            right_speed *= (1 - x)
         elif x < 0:
-            right_speed *= (1 + x)
+            left_speed *= (1 + x)
          
     print("Right Speed:", right_speed)
     print("Left Speed:", left_speed)
