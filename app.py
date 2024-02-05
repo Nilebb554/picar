@@ -26,7 +26,7 @@ class StreamingOutput(io.BufferedIOBase):
         with self.condition:
             self.frame = buf
             self.condition.notify_all()
-
+            
 picam2 = None
 CameraOutput = StreamingOutput()
 

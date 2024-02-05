@@ -16,7 +16,7 @@ let keyStatus = {
 
 let socket = io();
 socket.on('connect', function () {
-    console.log("Starting connection")
+    console.log("Starting connection");
 });
 
 document.addEventListener("keydown", function (event) {
@@ -33,29 +33,44 @@ function handleKeyEvent(event) {
 
     if (keyStatus[key] !== isKeyDown) {
         keyStatus[key] = isKeyDown;
+
         if (key === ",") {
             speed = parseFloat(Math.max(0, speed - 0.1).toFixed(3));
+            if (keyStatus["ArrowUp"] && isKeyDown) {
+                keyState["y"] = speed;
+            } else if (keyStatus["ArrowDown"] && isKeyDown) {
+                keyState["y"] = -speed;
+            } else {
+                keyState["y"] = isKeyDown ? speed : 0;
+            }
         } else if (key === ".") {
             speed = parseFloat(Math.min(1, speed + 0.1).toFixed(3));
-        } else {
-            switch (key) {
-                case "ArrowUp":
-                case "w":
-                    keyState["y"] = isKeyDown ? speed : 0;
-                    break;
-                case "ArrowDown":
-                case "s":
-                    keyState["y"] = isKeyDown ? -speed : 0;
-                    break;
-                case "ArrowLeft":
-                case "a":
-                    keyState["x"] = isKeyDown ? -1 : 0;
-                    break;
-                case "ArrowRight":
-                case "d":
-                    keyState["x"] = isKeyDown ? 1 : 0;
-                    break;
+            if (keyStatus["ArrowUp"] && isKeyDown) {
+                keyState["y"] = speed;
+            } else if (keyStatus["ArrowDown"] && isKeyDown) {
+                keyState["y"] = -speed;
+            } else {
+                keyState["y"] = isKeyDown ? speed : 0;
             }
+        }
+
+        switch (key) {
+            case "ArrowUp":
+            case "w":
+                keyState["y"] = isKeyDown ? speed : 0;
+                break;
+            case "ArrowDown":
+            case "s":
+                keyState["y"] = isKeyDown ? -speed : 0;
+                break;
+            case "ArrowLeft":
+            case "a":
+                keyState["x"] = isKeyDown ? -1 : 0;
+                break;
+            case "ArrowRight":
+            case "d":
+                keyState["x"] = isKeyDown ? 1 : 0;
+                break;
         }
 
         socket.emit("keyState", keyState);
