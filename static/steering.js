@@ -49,8 +49,6 @@ function handleKeyEvent(event) {
                 keyState["y"] = speed;
             } else if (keyStatus["ArrowDown"] && isKeyDown) {
                 keyState["y"] = -speed;
-            } else {
-                keyState["y"] = isKeyDown ? speed : 0;
             }
         }
 
