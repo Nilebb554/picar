@@ -57,17 +57,15 @@ document.addEventListener("keyup", function (event) {
 });
 
 function update() {
-    if (keyState["x"] !== 0 && keyState["y"] === 0) {
-        if (keyState["x"] > 0) {
+    if (keyState["y"] === 0) {
+        const x = keyState["x"];
+        if (x !== 0) {
             socket.emit("keyState", {
-                "x": -speed,
+                "x": -speed * Math.sign(x),
                 "y": 0
             });
-        } else if (keyState["x"] < 0) {
-            socket.emit("keyState", {
-                "x": -speed,
-                "y": 0
-            });
+        } else {
+            socket.emit("keyState", keyState);
         }
     } else {
         socket.emit("keyState", keyState);
