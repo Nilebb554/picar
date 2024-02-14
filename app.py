@@ -73,4 +73,4 @@ def handle_keyState(keyState):
         
         
 if __name__ == "__main__":
-    socketio.run(app, allow_unsafe_werkzeug=True, port=5000, debug = True)
+    socketio.run(app, allow_unsafe_werkzeug=True, port=5000, debug = True, host=0.0.0.0)
