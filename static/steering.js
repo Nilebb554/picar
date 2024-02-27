@@ -56,7 +56,28 @@ document.addEventListener("keyup", function (event) {
     }
 });
 
+//Gamepad
+
+function gamepadState(){
+    const gamepads = navigator.getGamepads();
+    for (let i = 0; i < gamepads.length; i++) {
+        const gamepad = gamepads[i];
+        if(gamepad){
+            const leftJoystickX = gamepad.axes[0];
+            const rightTriggerY = gamepad.buttons[7].value;
+
+            keyState.x = leftJoystickX;
+            keyState.y = rightTriggerY;
+        }
+    }
+}
+
+//Update
 function update() {
+    const gamepads = navigator.getGamepads();
+    if (gamepads.length > 0) {
+        gamepadState();
+    }
     if (keyState["y"] === 0) {
         const x = keyState["x"];
         if (x !== 0) {
