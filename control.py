@@ -44,8 +44,8 @@ def simple_calculate_motor_speeds(x, y):
 
     if y == 0:
         if x > 0:
-            left_speed = -x*100
-            right_speed = x*100
+            left_speed = x*100
+            right_speed = -x*100
         elif x < 0:
             left_speed = x*100
             right_speed = -x*100
