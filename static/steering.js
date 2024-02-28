@@ -64,10 +64,10 @@ function gamepadState(){
         const gamepad = gamepads[i];
         if(gamepad){
             const leftJoystickX = gamepad.axes[0];
-            const rightTriggerY = gamepad.buttons[7].value;
+            const TriggerY = gamepad.buttons[7].value - gamepad.buttons[6].value;
 
             keyState.x = leftJoystickX;
-            keyState.y = rightTriggerY;
+            keyState.y = TriggerY;
         }
     }
 }
@@ -77,6 +77,7 @@ function update() {
     const gamepads = navigator.getGamepads();
     if (gamepads.length > 0) {
         gamepadState();
+        socket.emit("keyState", keyState);
     }else if (keyState["y"] === 0) {
         const x = keyState["x"];
         if (x !== 0) {
