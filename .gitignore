@@ -1,4 +1,2 @@
 venv/
 __pycache__/
-
-<img src="{{ url_for('video_feed') }}" alt="Video Feed" width="100%"/>
