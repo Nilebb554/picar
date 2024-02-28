@@ -68,7 +68,6 @@ def disconnect():
     
 @socketio.on("keyState")
 def handle_keyState(keyState):
-    print(keyState)
     change_motor_speeds(keyState)
         
         

@@ -85,6 +85,7 @@ function update() {
                 "x": speed * Math.sign(x),
                 "y": 0
             });
+            console.log(speed * Math.sign(x))
         } else {
             socket.emit("keyState", keyState);
         }
@@ -93,7 +94,7 @@ function update() {
     }
 }
 
-setInterval(update, 1000 / 180);
+setInterval(update, 1000 / 1);
 
 
 //Color change up down right left
