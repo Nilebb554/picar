@@ -58,11 +58,11 @@ document.addEventListener("keyup", function (event) {
 
 //Gamepad
 
-function gamepadState(){
+function gamepadState() {
     const gamepads = navigator.getGamepads();
     for (let i = 0; i < gamepads.length; i++) {
         const gamepad = gamepads[i];
-        if(gamepad){
+        if (gamepad) {
             const leftJoystickX = gamepad.axes[0];
             const TriggerY = gamepad.buttons[7].value - gamepad.buttons[6].value;
 
@@ -78,11 +78,11 @@ function update() {
     if (gamepads.length > 0) {
         gamepadState();
         socket.emit("keyState", keyState);
-    }else if (keyState["y"] === 0) {
+    } else if (keyState["y"] === 0) {
         const x = keyState["x"];
         if (x !== 0) {
             socket.emit("keyState", {
-                "x": -speed * Math.sign(x),
+                "x": speed * Math.sign(x),
                 "y": 0
             });
         } else {
