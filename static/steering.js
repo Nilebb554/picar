@@ -94,7 +94,7 @@ function update() {
     }
 }
 
-setInterval(update, 1000 / 1);
+setInterval(update, 1000 / 180);
 
 
 //Color change up down right left
