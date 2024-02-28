@@ -44,8 +44,8 @@ def simple_calculate_motor_speeds(x, y):
     
     if y == 0:
         if x > 0:
-            left_speed = -x*100
-            right_speed = x*100
+            left_speed = x*100
+            right_speed = -x*100
         elif x < 0:
             left_speed = -x*100
             right_speed = x*100
@@ -73,10 +73,10 @@ def change_motor_speeds(state):
         lf_pwm.ChangeDutyCycle(0)
         lb_pwm.ChangeDutyCycle(0)
 
-    if right_speed > 0:
+    if right_speed >= 0:
         rf_pwm.ChangeDutyCycle(right_speed)
         rb_pwm.ChangeDutyCycle(0)
-    elif right_speed < 0:
+    elif right_speed <= 0:
         rf_pwm.ChangeDutyCycle(0)
         rb_pwm.ChangeDutyCycle(-right_speed)
     else:
