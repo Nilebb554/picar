@@ -64,10 +64,10 @@ function gamepadState() {
         const gamepad = gamepads[i];
         if (gamepad) {
             const leftJoystickX = gamepad.axes[0];
-            const TriggerY = gamepad.buttons[7].value - gamepad.buttons[6].value;
+            const triggerY = gamepad.buttons[7].value - gamepad.buttons[6].value;
 
             keyState.x = leftJoystickX;
-            keyState.y = TriggerY;
+            keyState.y = triggerY;
         }
     }
 }
