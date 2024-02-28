@@ -77,8 +77,7 @@ function update() {
     const gamepads = navigator.getGamepads();
     if (gamepads.length > 0) {
         gamepadState();
-    }
-    if (keyState["y"] === 0) {
+    }else if (keyState["y"] === 0) {
         const x = keyState["x"];
         if (x !== 0) {
             socket.emit("keyState", {
