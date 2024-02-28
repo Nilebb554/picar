@@ -60,23 +60,22 @@ def simple_calculate_motor_speeds(x, y):
 def change_motor_speeds(state):
     #convert it to number between -100 and 100
     left_speed, right_speed = simple_calculate_motor_speeds(state["x"], state["y"])
-    if left_speed == 100000:
-        if left_speed >= 0:
-            lf_pwm.ChangeDutyCycle(left_speed)
-            lb_pwm.ChangeDutyCycle(0)
-        elif left_speed <= 0:
-            lf_pwm.ChangeDutyCycle(0)
-            lb_pwm.ChangeDutyCycle(-left_speed)
-        else:
-            lf_pwm.ChangeDutyCycle(0)
-            lb_pwm.ChangeDutyCycle(0)
+    if left_speed >= 0:
+        lf_pwm.ChangeDutyCycle(left_speed)
+        lb_pwm.ChangeDutyCycle(0)
+    elif left_speed <= 0:
+        lf_pwm.ChangeDutyCycle(0)
+        lb_pwm.ChangeDutyCycle(-left_speed)
+    else:
+        lf_pwm.ChangeDutyCycle(0)
+        lb_pwm.ChangeDutyCycle(0)
 
-        if right_speed >= 0:
-            rf_pwm.ChangeDutyCycle(right_speed)
-            rb_pwm.ChangeDutyCycle(0)
-        elif right_speed <= 0:
-            rf_pwm.ChangeDutyCycle(0)
-            rb_pwm.ChangeDutyCycle(-right_speed)
-        else:
-            rf_pwm.ChangeDutyCycle(0)
-            rb_pwm.ChangeDutyCycle(0)
+    if right_speed >= 0:
+        rf_pwm.ChangeDutyCycle(right_speed)
+        rb_pwm.ChangeDutyCycle(0)
+    elif right_speed <= 0:
+        rf_pwm.ChangeDutyCycle(0)
+        rb_pwm.ChangeDutyCycle(-right_speed)
+    else:
+        rf_pwm.ChangeDutyCycle(0)
+        rb_pwm.ChangeDutyCycle(0)
