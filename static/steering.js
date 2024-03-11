@@ -1,4 +1,4 @@
-let keyState = {
+let steeringState = {
     "x": 0,
     "y": 0
 };
@@ -14,45 +14,45 @@ socket.on('connect', function () {
 
 document.addEventListener("keydown", function (event) {
     if (event.key === "ArrowRight" || event.key === "d" || event.key === "D") {
-        keyState["x"] = 1;
+        steeringState["x"] = 1;
     }
     else if (event.key === "ArrowLeft" || event.key === "a" || event.key === "A") {
-        keyState["x"] = -1;
+        steeringState["x"] = -1;
     }
     else if (event.key === "ArrowUp" || event.key === "w" || event.key === "W") {
-        keyState["y"] = speed;
+        steeringState["y"] = speed;
     }
     else if (event.key === "ArrowDown" || event.key === "s" || event.key === "S") {
-        keyState["y"] = -speed;
+        steeringState["y"] = -speed;
     }
     else if (event.key === ",") {
         speed -= 0.1;
         speed = Math.max(0.0001, Math.min(speed, 1));
         console.log("Speed:", speed);
-        if (keyState["y"] > 0) {
-            keyState["y"] = speed;
-        } else if (keyState["y"] < 0) {
-            keyState["y"] = -speed
+        if (steeringState["y"] > 0) {
+            steeringState["y"] = speed;
+        } else if (steeringState["y"] < 0) {
+            steeringState["y"] = -speed
         }
     }
     else if (event.key === ".") {
         speed += 0.1;
         speed = Math.max(0.0001, Math.min(speed, 1));
         console.log("Speed:", speed);
-        if (keyState["y"] > 0) {
-            keyState["y"] = speed;
-        } else if (keyState["y"] < 0) {
-            keyState["y"] = -speed
+        if (steeringState["y"] > 0) {
+            steeringState["y"] = speed;
+        } else if (steeringState["y"] < 0) {
+            steeringState["y"] = -speed
         }
     }
 });
 
 document.addEventListener("keyup", function (event) {
     if ((event.key === "ArrowRight" || event.key === "d" || event.key === "D" || event.key === "ArrowLeft" || event.key === "a" || event.key === "A")) {
-        keyState["x"] = 0;
+        steeringState["x"] = 0;
     }
     if ((event.key === "ArrowUp" || event.key === "w" || event.key === "W" || event.key === "ArrowDown" || event.key === "s" || event.key === "S")) {
-        keyState["y"] = 0;
+        steeringState["y"] = 0;
     }
 });
 
@@ -66,8 +66,8 @@ function gamepadState() {
             const leftJoystickX = gamepad.axes[0];
             const triggerY = gamepad.buttons[7].value - gamepad.buttons[6].value;
 
-            keyState.x = leftJoystickX;
-            keyState.y = triggerY;
+            steeringState.x = leftJoystickX;
+            steeringState.y = triggerY;
         }
     }
 }
@@ -77,20 +77,20 @@ function update() {
     const gamepads = navigator.getGamepads();
     if (gamepads.length > 0) {
         gamepadState();
-        socket.emit("keyState", keyState);
-    } else if (keyState["y"] === 0) {
-        const x = keyState["x"];
+        socket.emit("steeringData", steeringState);
+    } else if (steeringState["y"] === 0) {
+        const x = steeringState["x"];
         if (x !== 0) {
-            socket.emit("keyState", {
+            socket.emit("steeringData", {
                 "x": speed * Math.sign(x),
                 "y": 0
             });
             console.log(speed * Math.sign(x))
         } else {
-            socket.emit("keyState", keyState);
+            socket.emit("steeringData", steeringState);
         }
     } else {
-        socket.emit("keyState", keyState);
+        socket.emit("steeringData", steeringState);
     }
 }
 
