@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template, Response
 from flask_socketio import SocketIO
 
 import RPi.GPIO as GPIO
