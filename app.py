@@ -67,8 +67,8 @@ def disconnect():
     print("Client disconnected")
     
 @socketio.on("steering_data")
-def handle_keyState(data):
-    change_motor_speeds(data)
+def handle_keyState(steeringData):
+    change_motor_speeds(steeringData)
         
         
 if __name__ == "__main__":
