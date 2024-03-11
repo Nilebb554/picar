@@ -78,7 +78,7 @@ function update() {
     if (gamepads.length > 0) {
         gamepadState();
         socket.emit("steeringData", steeringState);
-        console.log("Gamepad" + steeringState);
+        console.log("Gamepad", steeringState);
     } else if (steeringState["y"] === 0) {
         const x = steeringState["x"];
         if (x !== 0) {
@@ -86,7 +86,7 @@ function update() {
                 "x": speed * Math.sign(x),
                 "y": 0
             });
-            console.log("y = 0 speed sent on x"speed * Math.sign(x))
+            console.log("y = 0 speed sent on x", speed * Math.sign(x))
         } else {
             socket.emit("steeringData", steeringState);
             console.log("Other");
