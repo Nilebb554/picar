@@ -75,7 +75,16 @@ function gamepadState() {
 //Update
 function update() {
     const gamepads = navigator.getGamepads();
-    if (gamepads.length > 0) {
+    let gamepadConnected = false;
+
+    for (let i = 0; i < gamepads.length; i++) {
+        if (gamepads[i] && gamepads[i].connected) {
+            gamepadConnected = true;
+            break;
+        }
+    }
+
+    if (gamepadConnected) {
         gamepadState();
         socket.emit("steeringData", steeringState);
         console.log("Gamepad", steeringState);
