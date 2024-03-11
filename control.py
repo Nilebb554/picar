@@ -1,6 +1,4 @@
 import RPi.GPIO as GPIO
-import math
-import time
 
 LF = 26
 LB = 24
@@ -57,9 +55,13 @@ def simple_calculate_motor_speeds(x, y):
          
     return left_speed, right_speed
 
-def change_motor_speeds(state):
+def change_motor_speeds(data):
     #convert it to number between -100 and 100
-    left_speed, right_speed = simple_calculate_motor_speeds(state["x"], state["y"])
+    x = data["x"]
+    y = data["y"]
+    
+    left_speed, right_speed = simple_calculate_motor_speeds(x, y)
+    
     if left_speed >= 0:
         lf_pwm.ChangeDutyCycle(left_speed)
         lb_pwm.ChangeDutyCycle(0)
