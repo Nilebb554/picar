@@ -4,6 +4,7 @@ from flask_socketio import SocketIO
 import RPi.GPIO as GPIO
 from control import change_motor_speeds, power_up, power_down
 
+from threading import Condition
 from picamera2 import Picamera2
 
 import io
