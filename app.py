@@ -66,7 +66,7 @@ def disconnect():
     power_down()
     print("Client disconnected")
     
-@socketio.on("steering_data")
+@socketio.on("steeringData")
 def handle_keyState(data):
     change_motor_speeds(data)
         
