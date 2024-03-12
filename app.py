@@ -27,13 +27,13 @@ class StreamingOutput(io.BufferedIOBase):
             self.condition.notify_all()
                 
 picam2 = None
-CameraOutput = StreamingOutput()
+streaming_output = StreamingOutput()
     
 def generate_frames():
     while True:
-        with cameraOutput.condition:
-            cameraOutput.condition.wait()
-            frame = cameraOutput.frame
+        with streaming_output.condition:
+            streaming_output.condition.wait()
+            frame = streaming_output.frame
         yield (b'--frame\r\n'
                 b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
      
@@ -44,15 +44,15 @@ def hello_world():
 @app.route('/video_feed')
 def video_feed():
     global picam2
-    global cameraOutput
+    global streaming_output
     
     if picam2 is None:
         picam2 = Picamera2()
         camera_config = picam2.create_video_configuration(main={"size": (1200, 600)})
         camera_config["transform"] = libcamera.Transform(hflip=1, vflip=1)
         picam2.configure(camera_config)
-        cameraOutput = StreamingOutput()
-        picam2.start_recording(JpegEncoder(), FileOutput(cameraOutput))
+        streaming_output = StreamingOutput()
+        picam2.start_recording(JpegEncoder(), FileOutput(streaming_output))
         
     return Response(generate_frames(),mimetype='multipart/x-mixed-replace; boundary=frame')
     
