@@ -58,12 +58,10 @@ def video_feed():
 @socketio.on("connect")
 def connect():
     power_up()
-    print("Client connected")
     
 @socketio.on("disconnect")
 def disconnect():
     power_down()
-    print("Client disconnected")
     
 @socketio.on("steeringData")
 def handle_keyState(data):
