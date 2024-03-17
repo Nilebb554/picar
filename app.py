@@ -15,6 +15,8 @@ import time
 
 app = Flask(__name__)
 socketio = SocketIO(app)
+
+connected_clients = 0
     
 class StreamingOutput(io.BufferedIOBase):
     def __init__(self):
@@ -57,12 +59,19 @@ def video_feed():
     
 @socketio.on("connect")
 def connect():
-    power_up()
+    global connected_clients
+    if connected_clients == 0:
+        power_up()
+    connected_clients += 1
+
     
 @socketio.on("disconnect")
 def disconnect():
-    power_down()
-    
+    global connected_clients
+    connected_clients -= 1
+    if connected_clients == 0:
+        power_up()
+
 @socketio.on("steeringData")
 def handle_keyState(data):
     change_motor_speeds(data)
