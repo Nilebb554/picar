@@ -5,9 +5,15 @@ LB = 24
 RF = 21
 RB = 19
 
+lf_pwm = None
+lb_pwm = None
+rf_pwm = None
+rb_pwm = None
+
 def power_up():
-    GPIO.setmode(GPIO.BOARD)
     global lf_pwm, lb_pwm, rf_pwm, rb_pwm
+
+    GPIO.setmode(GPIO.BOARD)
     GPIO.setup(LF, GPIO.OUT)
     lf_pwm = GPIO.PWM(LF, 20)
     lf_pwm.start(0)
@@ -25,6 +31,7 @@ def power_up():
     rb_pwm.start(0)
 
 def power_down():
+    global lf_pwm, lb_pwm, rf_pwm, rb_pwm
     lf_pwm.stop()
     lb_pwm.stop()
     rf_pwm.stop()
@@ -56,7 +63,10 @@ def simple_calculate_motor_speeds(x, y):
     return left_speed, right_speed
 
 def change_motor_speeds(data):
+    global lf_pwm, lb_pwm, rf_pwm, rb_pwm
+    
     #convert it to number between -100 and 100
+    
     x = data["x"]
     y = data["y"]
     
