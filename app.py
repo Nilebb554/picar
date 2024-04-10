@@ -78,4 +78,4 @@ def handle_keyState(data):
         
         
 if __name__ == "__main__":
-    socketio.run(app, allow_unsafe_werkzeug=True, port=5000, host='0.0.0.0', debug = True)
+    socketio.run(app, ssl_context='adhoc', allow_unsafe_werkzeug=True, port=5000, host='0.0.0.0', debug = True)
